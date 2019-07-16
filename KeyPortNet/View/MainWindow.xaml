@@ -1,0 +1,307 @@
+﻿<Window xmlns:UserCtrl="clr-namespace:KeyPortNet.UserCtrl"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KeyPortNet"
+        xmlns:ViewModel="clr-namespace:KeyPortNet.ViewModel"
+        xmlns:properties="clr-namespace:KeyPortNet.Properties"
+        xmlns:local1="clr-namespace:KeyPortNet.View" x:Name="window"  x:Class="KeyPortNet.View.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="800" MinHeight="500" MinWidth="800" WindowStartupLocation="CenterScreen" Icon="/KeyPortNet;component/keys.ico" ResizeMode="CanResizeWithGrip">
+    <Window.DataContext>
+        <ViewModel:MainWindowViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+            <RowDefinition Height="0.3*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0" x:Name ="Menü" Height="20" DockPanel.Dock="Top">
+            <Menu DockPanel.Dock="Top" RenderTransformOrigin="0.5,0.5">
+                <Menu.Background>
+                    <LinearGradientBrush EndPoint="0.7,0.5" StartPoint="0.3,0.5" SpreadMethod="Pad">
+                        <GradientStop Color="#19FFFFFF" Offset="1"/>
+                        <GradientStop Color="#0C686868"/>
+                    </LinearGradientBrush>
+                </Menu.Background>
+                <Menu.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleY="1" ScaleX="1"/>
+                        <SkewTransform AngleY="0" AngleX="0"/>
+                        <RotateTransform Angle="0"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Menu.RenderTransform>
+                <MenuItem Header="_Datei" Foreground="#FF5DAEDB">
+                    <MenuItem Header="_Neu" Command="{Binding acNewDB}">
+                        <MenuItem.Icon>
+                            <Image Source="/KeyPortNet;component/Resources/database_add.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="_Öffnen" Command="{Binding acOpenDB}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/folder_explore.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="_Schliessen" Command="{Binding acCloseDB}">
+                        <MenuItem.Icon>
+                            <Image Source="/KeyPortNet;component/Resources/database_delete.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Header="_Speichern" Command="{Binding acSaveDB}">
+                        <MenuItem.Icon>
+                            <Image Source="/KeyPortNet;component/Resources/database_save.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="_Speichern unter.." Command="{Binding acSaveDB}" CommandParameter="{Binding ProgrammSettings.Default.DBPfad}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/folder_explore.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Header="_Datenbank Export">
+                        <MenuItem.Icon>
+                            <Image Source="/KeyPortNet;component/Resources/database_go.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Header="_Settings">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/wrench_orange.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem Header="_Exit" Command="{Binding acCloseApp}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/door_out.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="_Info" Foreground="#FF5DAEDB">
+                    <MenuItem Header="_Über">
+                        <MenuItem.Icon>
+                            <Image  Source="/Resources/information.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="_Hilfe">
+                        <MenuItem.Icon>
+                            <Image  Source="/Resources/help.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+        <ToolBarPanel Grid.Row="1">
+            <ToolBar Background="{x:Null}">
+                <Button Width="25" Height="25" ToolTip="Neue Datenbank erzeugen" Command="{Binding acNewDB}">
+                    <Image Source="/KeyPortNet;component/Resources/database_add.png" Stretch="None"/>
+                </Button>
+                <Button Width="25" Height="25" ToolTip="Vorhandene Datenbank öffnen" Command="{Binding acOpenDB}">
+                    <Image Source="/KeyPortNet;component/Resources/folder.png" Stretch="None"/>
+                </Button>
+                <Button Width="25" Height="25" ToolTip="Datenbank sschließen" Command="{Binding acCloseDB}">
+                    <Image Source="/KeyPortNet;component/Resources/database_delete.png" Stretch="None"/>
+                </Button>
+                <Button Width="25" Height="25" ToolTip="Datenbank speichern" Command="{Binding acSaveDB}">
+                    <Image Source="/KeyPortNet;component/Resources/database_save.png" Stretch="None"/>
+                </Button>
+                <Separator/>
+                <Button x:Name="btnKeyNeu" Width="25" Height="25" Command="{Binding acNewKey}" ToolTip="Neuen Passworteintrag anlegen">
+                    <Image Source="/KeyPortNet;component/Resources/key_add.png" Stretch="None"/>
+                </Button>
+                <Button x:Name="btnKeyDelete" Width="25" Height="25" Command="{Binding acDeleteKey}" ToolTip="Ausgewählten Eintrag löschen">
+                    <Image Source="/KeyPortNet;component/Resources/key_delete.png" Stretch="None"/>
+                </Button>
+                <Separator/>
+                <Button Width="25" Height="25">
+                    <Image Source="/KeyPortNet;component/Resources/user_go.png" Stretch="None" ToolTip="Benutzernamen in Zwischenablage kopieren"/>
+                </Button>
+                <Button Width="25" Height="25">
+                    <Image Source="/KeyPortNet;component/Resources/page_white_key.png" Stretch="None" ToolTip="Passwort in Zwischenablage kopieren"/>
+                </Button>
+                <Separator/>
+                <Button Width="25" Height="25">
+                    <Image Source="/KeyPortNet;component/Resources/link_go.png" Stretch="None" ToolTip="URL öffnen"/>
+                </Button>
+                <Separator/>
+                
+                <Button Width="25" Height="25">
+                    <Image Source="/KeyPortNet;component/Resources/magnifier.png" Stretch="None" ToolTip="Suchen"/>
+                </Button>
+                <Separator/>
+                <TextBox Width="200" Height="25"/>
+                <Separator/>
+            </ToolBar>
+        </ToolBarPanel>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.4*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <UserCtrl:ExtendedTreeView x:Name="treeView" Grid.Column="0" ItemsSource="{Binding Path=DB.KeyGroups}" SelectedItem_="{Binding Path=SelectedGroup, Mode=TwoWay}" AllowDrop="True" DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local1:MainWindow}}}">
+                <UserCtrl:ExtendedTreeView.ItemTemplate>
+                    <HierarchicalDataTemplate DataType="local:KeyGroups" ItemsSource="{Binding KeyGroups}">
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel.ContextMenu>
+                                <ContextMenu HorizontalContentAlignment="Left">
+                                    <MenuItem Header="_Neue Gruppe.." Command="{Binding Command}">
+                                        <MenuItem.Icon>
+                                            <Image Width="20" Height="20" Source="/KeyPortNet;component/Resources/wrench_orange.png"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem Header="_Neue Untergruppe erstellen.." Command="{Binding Command}">
+                                        <MenuItem.Icon>
+                                            <Image Width="20" Height="20" Source="/KeyPortNet;component/Resources/wrench_orange.png"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <Separator/>
+                                    <MenuItem Header="_Gruppe bearbeiten" Command="{Binding acEditGroup}">
+                                        <MenuItem.Icon>
+                                            <Image Width="20" Height="20" Source="/Resources/wrench_orange.png"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem Header="_Gruppe löschen" Command="{Binding Command}">
+                                        <MenuItem.Icon>
+                                            <Image Width="20" Height="20" Source="/KeyPortNet;component/Resources/wrench_orange.png"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </ContextMenu>
+                            </StackPanel.ContextMenu>
+                            <Image Source="{Binding ImageSource}"/>
+                            <TextBlock Text="{Binding Gruppenname}" FontSize="14" FontWeight="Normal"/>
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                </UserCtrl:ExtendedTreeView.ItemTemplate>
+            </UserCtrl:ExtendedTreeView>
+            <!--<DataGrid Grid.Column="1"  ItemsSource="{Binding SelectedGroup.KeyEntries}"/>-->
+            <UserCtrl:ucListView  Grid.Column="1" ItemsSource="{Binding SelectedGroup.KeyEntries}"/>
+            <GridSplitter Grid.Column="0" Width="4" VerticalAlignment="Stretch" ShowsPreview="True" BorderBrush="Black" BorderThickness="0.5"/>
+        </Grid>
+        <ScrollViewer Grid.Row="3" Margin="10">
+            <WrapPanel>
+                <Label Content="Gruppe:" FontWeight="Bold">
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedGroup}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+                <Label Content="{Binding SelectedGroup.Gruppenname}" Foreground="#FF002DA4" Padding="0,5,5,0"/>
+                <Label Content="Titel:" FontWeight="Bold">
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedKey.Titel}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+                <Label Content="{Binding SelectedKey.Titel}"  Padding="0,5,5,0"/>
+                <Label Content="Benutzername:" FontWeight="Bold">
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedKey.Benutzername}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+                <Label Content="{Binding SelectedKey.Benutzername}"  Padding="0,5,5,0"/>
+                <Label Content="Passwort:" FontWeight="Bold">
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedKey.Passwort}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+                <Label Content="{Binding SelectedKey.PasswortHide}"  Padding="0,5,5,0"/>
+                <Label Content="URL:" FontWeight="Bold">
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedKey.URL}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding SelectedKey.URL}" Value="">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+                <TextBlock Cursor="Hand" Padding="0,5,5,0">
+                    <Hyperlink NavigateUri="{Binding SelectedKey.URL}" Command="{Binding acStartBrowser}" CommandParameter="{Binding SelectedKey.URL}">
+                        <TextBlock Text="{Binding SelectedKey.URL}"/>
+                    </Hyperlink>
+                </TextBlock>
+                <Label Content="Erstellungszeit:" FontWeight="Bold">
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedKey.Anlegedatum}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+                <Label Content="{Binding SelectedKey.Anlegedatum}" ContentStringFormat="dd.MM.yyyy HH:mm:ss"  Padding="0,5,5,0"/>
+                <Label Content="Letzte Änderung:" FontWeight="Bold">
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedKey.Aenderungsdatum}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+                <Label Content="{Binding SelectedKey.Aenderungsdatum}" ContentStringFormat="dd.MM.yyyy HH:mm:ss"  Padding="0,5,5,0"/>
+                <Label Content="Letzter Zugriff:" FontWeight="Bold">
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedKey.Zugriffsdatum}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+                <Label Content="{Binding SelectedKey.Zugriffsdatum}" ContentStringFormat="dd.MM.yyyy HH:mm:ss"  Padding="0,5,5,0"/>
+                <Label Content="Kommentar:" FontWeight="Bold">
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedKey.Kommentar}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+                <Label Content="{Binding SelectedKey.Kommentar}"  Padding="0,5,5,0"/>
+            </WrapPanel>
+        </ScrollViewer>
+        <StatusBar Grid.Row="4"/>
+        <GridSplitter Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Top" ShowsPreview="True" Height="4" BorderBrush="Black" BorderThickness="0.5"/>
+    </Grid>
+</Window>

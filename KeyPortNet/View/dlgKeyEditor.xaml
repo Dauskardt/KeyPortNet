@@ -1,0 +1,98 @@
+﻿<Window xmlns:UserCtrl="clr-namespace:KeyPortNet.UserCtrl"  x:Class="KeyPortNet.View.dlgKeyEditor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ViewModel="clr-namespace:KeyPortNet.ViewModel"
+        xmlns:ucctrl="clr-namespace:KeyPortNet.UserCtrl"
+        xmlns:local="clr-namespace:KeyPortNet.View"
+        mc:Ignorable="d"
+        Title="Schlüssel bearbeiten" Height="450" Width="500" WindowStartupLocation="CenterOwner" Icon="/KeyPortNet;component/keys.ico" ResizeMode="NoResize">
+    <Window.DataContext>
+        <ViewModel:dlgKeyEditorViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <UserCtrl:ucHeader Grid.Row="0"/>
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.3*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Column="1" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox x:Name="cboGroups" Grid.Column="0" FontSize="14" ItemsSource="{Binding Groups}" Margin="2" SelectionChanged="cboGroups_SelectionChanged"/>
+                <Label Grid.Column="1" Content="Icon" FontSize="14" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+                <Button Grid.Column="2" Margin="2" Click="Button_Click">
+                    <Image Source="{Binding SelectedKey.ImageSource}" Stretch="None"/>
+                </Button>
+            </Grid>
+            <Label Grid.Column="0" Grid.Row="0"  FontSize="14" Content="Gruppe"/>
+            <Label Grid.Column="0" Grid.Row="1"  FontSize="14" Content="Titel"/>
+            <Label Grid.Column="0" Grid.Row="2"  FontSize="14" Content="Benutzername"/>
+            <Label Grid.Column="0" Grid.Row="3"  FontSize="14" Content="Passwort"/>
+            <Label Grid.Column="0" Grid.Row="4"  FontSize="14" Content="URL"/>
+            <Label Grid.Column="0" Grid.Row="5"  FontSize="14" Content="Kommentar"/>
+            <Label Grid.Column="0" Grid.Row="6"  FontSize="14" Content="gültig bis"/>
+
+
+            <TextBox Grid.Column="1" Grid.Row="1" FontSize="14" Text="{Binding SelectedKey.Titel}" Margin="2" VerticalContentAlignment="Center"/>
+            <TextBox Grid.Column="1" Grid.Row="2"  FontSize="14" Text="{Binding SelectedKey.Benutzername}" Margin="2" VerticalContentAlignment="Center"/>
+            <Grid Grid.Column="1" Grid.Row="3" Margin="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="0.3*"/>
+                    <ColumnDefinition Width="0.3*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="txtPasswortPlain" FontSize="14" Visibility="{Binding PasswortPlain}" Text="{Binding SelectedKey.Passwort}" Grid.Column="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                <PasswordBox x:Name="txtPasswortHide" FontSize="14" Visibility="{Binding PasswortHide}" ucctrl:PasswordBoxAssistant.BindPassword="true" ucctrl:PasswordBoxAssistant.BoundPassword = "{Binding Path = SelectedKey.Passwort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                <ToggleButton Grid.Column="1" Margin="5,0,0,0" IsChecked="{Binding ShowPW, Mode=TwoWay}">
+                    <Viewbox>
+                        <Label Content="●●●" VerticalAlignment="Center" ToolTip="Anzeigen"/>
+                    </Viewbox>
+                </ToggleButton>
+                <Button x:Name="btnStartKeyGen" Grid.Column="2" Margin="10,0,0,0" Click="btnStartKeyGen_Click">
+                    <Image Source="/KeyPortNet;component/Resources/key_go.png" Stretch="None"/>
+                </Button>
+            </Grid>
+            <!--<UserCtrl:ucKeyGen x:Name="ucKeyGen" Grid.Column="1" Grid.Row="3" Margin="2" PasswortString=""/>-->
+            <!--<TextBox Grid.Column="1" Grid.Row="3"  FontSize="14" Text="{Binding Passwort}" Margin="2" VerticalContentAlignment="Center"/>-->
+            <TextBox Grid.Column="1" Grid.Row="4"  FontSize="14" Text="{Binding SelectedKey.URL}" Margin="2" VerticalContentAlignment="Center"/>
+            <ScrollViewer Grid.Column="1" Grid.Row="5" Margin="2" VerticalScrollBarVisibility="Auto">
+                <TextBox FontSize="14" Text="{Binding SelectedKey.Kommentar}" TextWrapping="Wrap" VerticalContentAlignment="Top"/>
+            </ScrollViewer>
+            <DatePicker Grid.Column="1" Grid.Row="6" FontSize="14" SelectedDate="{Binding SelectedKey.Ablaufdatum}" Margin="2" VerticalContentAlignment="Center"/>
+        </Grid>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+            <Button x:Name="btnOK" Width="100" Margin="0,0,10,0" Click="btnOK_Click">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                    <Image Source="/KeyPortNet;component/Resources/tick.png" Stretch="None"/>
+                    <Label Content="_Übernehmen" HorizontalAlignment="Right"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="btnCancel" Width="100" Click="btnCancel_Click">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                    <Image Source="/KeyPortNet;component/Resources/cancel.png" Stretch="None"/>
+                    <Label Content="_Abbrechen" HorizontalAlignment="Right"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

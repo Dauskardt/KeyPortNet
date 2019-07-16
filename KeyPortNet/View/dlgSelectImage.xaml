@@ -1,0 +1,40 @@
+﻿<Window xmlns:UserCtrl="clr-namespace:KeyPortNet.UserCtrl"  x:Class="KeyPortNet.View.dlgSelectImage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KeyPortNet.View"
+        xmlns:ViewModel="clr-namespace:KeyPortNet.ViewModel"
+        mc:Ignorable="d"
+        Title="Icon auswählen" Height="400" Width="400" MinHeight="300" MinWidth="300" WindowStartupLocation="CenterOwner" Icon="/KeyPortNet;component/keys.ico">
+    <Window.DataContext>
+        <ViewModel:dlgSelectImageViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <UserCtrl:ucHeader Grid.Row="0"/>
+        <Border BorderThickness="0.5" BorderBrush="#FF686868" Grid.Row="1" Margin="10">
+            <ScrollViewer x:Name="MyScrollViewer" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" Background="#FFE8E7EE">
+                <WrapPanel x:Name="IconContainer"  Width="{Binding ElementName=MyScrollViewer, Path=ViewportWidth}"/>
+            </ScrollViewer>
+        </Border>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+            <Button Width="100" Margin="0,0,10,0" Click="Button_Click">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                    <Image Source="/KeyPortNet;component/Resources/tick.png" Stretch="None" HorizontalAlignment="Left"/>
+                    <Label Content="_OK" HorizontalAlignment="Right"/>
+                </StackPanel>
+            </Button>
+            <Button Width="100"  Command="{Binding Path=acCloseDialog}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}" Click="Button_Click_1">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                    <Image Source="/KeyPortNet;component/Resources/cancel.png" Stretch="None"/>
+                    <Label Content="_Abbrechen" HorizontalAlignment="Right"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="KeyPortNet.UserCtrl.ucHeader"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:KeyPortNet.UserCtrl"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="300">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF9A9AAA" Offset="0"/>
+                <GradientStop Color="#FF62626C" Offset="1"/>
+                <GradientStop Color="#FF676772" Offset="0.505"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Image Grid.Column="0" Source="{Binding HeaderImage}" Stretch="None"/>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.2*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Content="{Binding HeaderTextTop}" VerticalContentAlignment="Center" FontWeight="Bold" Background="{x:Null}" Foreground="White" FontSize="16" Padding="0"/>
+            <Label Grid.Row="1" Content="{Binding HeaderTextBottom}" VerticalContentAlignment="Top" Foreground="White" Padding="0"/>
+        </Grid>
+    </Grid>
+</UserControl>
