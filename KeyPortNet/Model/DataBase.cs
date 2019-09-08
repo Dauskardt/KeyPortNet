@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -86,12 +87,17 @@ namespace KeyPortNet.Model
     [Serializable]
     public class DBAttribute : ViewModel.ViewModelBase
     {
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private string Crc32Field;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private string UserField;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private string ComputerField;
-      
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private DateTime LastWriteField;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private string LastSavePathField;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private DateTime LastPWChangeField;
 
         public string Crc32
@@ -200,7 +206,9 @@ namespace KeyPortNet.Model
     [Serializable]
     public class KeyGroup : ViewModel.ViewModelBase
     {
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private string ImageSourceField;
+
         public string ImageSource
         {
             get
@@ -215,6 +223,7 @@ namespace KeyPortNet.Model
             }
         }
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private string GruppennameField;
         [XmlAttribute]
         public string Gruppenname
@@ -231,6 +240,7 @@ namespace KeyPortNet.Model
             }
         }
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private ObservableCollection<KeyEntry> KeyEntriesField = new ObservableCollection<KeyEntry>();
 
         public ObservableCollection<KeyEntry> KeyEntries
@@ -247,6 +257,7 @@ namespace KeyPortNet.Model
             }
         }
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private KeyGroupList KeyGroupsField = new KeyGroupList();
 
         public KeyGroupList KeyGroups
@@ -262,8 +273,6 @@ namespace KeyPortNet.Model
                 RaisePropertyChangedEvent("KeyGroups");
             }
         }
-
-
 
         public KeyGroup(){ }
 
@@ -281,16 +290,27 @@ namespace KeyPortNet.Model
     [Serializable]
     public class KeyEntry : ViewModel.ViewModelBase
     {
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private string CRCField;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private string ImageSourceField = "/KeyPortNet;component/Resources/key_add.png";
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private string TitelField;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private string BenutzernameField;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private string PasswortField;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private string URLField;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private string KommentarField;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private DateTime Anlegedatum_Field = DateTime.Now;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private DateTime Aenderungsdatum_Field = DateTime.Now;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private DateTime Zugriffsdatum_Field = DateTime.Now;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private DateTime Ablaufdatum_Field = DateTime.Now;
 
 

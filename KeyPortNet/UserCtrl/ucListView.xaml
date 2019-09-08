@@ -7,12 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              x:Name="MyControl">
-    <UserControl.Resources>
-        <Style x:Key="itemstyle" TargetType="{x:Type ListViewItem}">
-            <EventSetter Event="MouseDoubleClick" Handler="HandleDoubleClick" />
-        </Style>
-    </UserControl.Resources>
-    <ListView DataContext="{Binding ElementName=MyControl}" ItemsSource="{Binding ItemsSource}" ItemContainerStyle="{StaticResource itemstyle}" SelectionChanged="ListView_SelectionChanged">
+    <ListView DataContext="{Binding ElementName=MyControl}" ItemsSource="{Binding ItemsSource}" SelectionChanged="ListView_SelectionChanged">
         <ListView.View>
             <GridView>
                 <GridViewColumn Header="Icon" Width="Auto">
@@ -45,5 +40,25 @@
                 <GridViewColumn Header="Kommentar" Width="Auto" DisplayMemberBinding="{Binding Kommentar}"/>
             </GridView>
         </ListView.View>
+        <ListView.Resources>
+            <ContextMenu x:Key="ItemContextMenu" Name="ListViewItemContextMenu" StaysOpen="true" Background="WhiteSmoke">
+                <ContextMenu.BitmapEffect>
+                    <BitmapEffectGroup/>
+                </ContextMenu.BitmapEffect>
+                <MenuItem Header="Benutzernamen kopieren" Name="CopyNameContextMenu"  Click="CopyNameContextMenu_Click"/>
+                <MenuItem Header="Passwort kopieren" Name="CopyPWContextMenu" Click="CopyPWContextMenu_Click"/>
+                <MenuItem Header="URL kopieren" Name="CopyURLContextMenu" Click="CopyURLContextMenu_Click"/>
+                <Separator/>
+                <MenuItem Header="Bearbeiten" Name="EditKeyContextMenu" Click="EditKeyContextMenu_Click"/>
+                <MenuItem Header="Löschen" Name="DeleteKeyContextMenu" Click="DeleteKeyContextMenu_Click"/>
+            </ContextMenu>
+        </ListView.Resources>
+        <ListView.ItemContainerStyle>
+            <Style TargetType="{x:Type ListViewItem}" >
+                <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}" />
+                <EventSetter Event="MouseDoubleClick" Handler="HandleDoubleClick" />
+                <EventSetter Event="PreviewMouseRightButtonDown" Handler="HandlePreviewMouseRightButtonDown" />
+            </Style>
+        </ListView.ItemContainerStyle>
     </ListView>
 </UserControl>
